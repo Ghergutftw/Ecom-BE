@@ -1,9 +1,8 @@
 package App.Rest;
 
-import App.Repository.ProductRepository;
 import App.Entity.Product;
+import App.Repository.ProductRepository;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;

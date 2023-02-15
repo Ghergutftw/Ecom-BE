@@ -2,15 +2,17 @@ package App.Entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
-@Data
-@Table(name="product")
 @Entity
+@Table(name="product")
+@Data
 public class Product {
 
     @Id
