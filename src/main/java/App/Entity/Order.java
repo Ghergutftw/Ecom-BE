@@ -1,22 +1,24 @@
 package App.Entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.Hibernate;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 
 @Entity
 @Table(name="orders")
-@Data
-
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 public class Order {
 
     @Id
@@ -45,6 +47,7 @@ public class Order {
     private Date lastUpdated;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
+    @ToString.Exclude
     private Set<OrderItem> orderItems = new HashSet<>();
 
     @ManyToOne
@@ -69,6 +72,19 @@ public class Order {
             orderItems.add(item);
             item.setOrder(this);
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Order order = (Order) o;
+        return id != null && Objects.equals(id, order.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }
 

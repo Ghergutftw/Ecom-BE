@@ -1,14 +1,18 @@
 package App.Entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Entity
 @Table(name="order_item")
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 
 public class OrderItem {
 
@@ -33,6 +37,18 @@ public class OrderItem {
     @JoinColumn(name = "order_id")
     private Order order;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        OrderItem orderItem = (OrderItem) o;
+        return id != null && Objects.equals(id, orderItem.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
 
 
