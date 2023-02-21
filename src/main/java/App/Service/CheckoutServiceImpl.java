@@ -32,6 +32,10 @@ public class CheckoutServiceImpl implements CheckoutService{
         orderItems.forEach(order::add);
         order.setShippingAddress(purchase.getShippingAddress());
         Customer customer = purchase.getCustomer();
+        Customer customerFromDB = customerRepository.findByEmail(customer.getEmail());
+        if(customerFromDB != null){
+            customer = customerFromDB;
+        }
         customer.add(order);
         customerRepository.save(customer);
         return new PurchaserResponse(orderTrackingNumber);

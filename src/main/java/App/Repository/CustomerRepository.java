@@ -6,6 +6,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Repository
-@CrossOrigin
+ 
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
+
+    Customer findByEmail(String theEmail);
+
 }
